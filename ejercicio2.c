@@ -1,5 +1,5 @@
 /*Ejercicio 2*/
-#include <iostream>
+
 #include <mpi.h>
 #include <stdio.h>
 #include <string.h>
