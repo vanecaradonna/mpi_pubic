@@ -18,7 +18,7 @@ int main (int argc, char** argv) {
     if (total_pro > 1) {// Tengo mas de 1 proceso
         if (proceso == 0) {
             printf("Ingrese la cantidad de vueltas: \n");
-            scanf_s("%d", &vueltas);
+            scanf("%d", &vueltas);
             proximo_proceso = proceso + 1;
             MPI_Send(&mensaje, 1, MPI_CHAR, proximo_proceso, proceso, MPI_COMM_WORLD);
             printf("El proceso %d envia el dato %c al proceso %d\n", proceso, mensaje, proximo_proceso);
