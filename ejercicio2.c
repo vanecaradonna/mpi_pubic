@@ -4,59 +4,51 @@
 #include <stdio.h>
 #include <string.h>
 
-int main (int argc, char** argv) {
-    int vueltas=-1, i=0;
+int main(int argc, char** argv) {
+    int vueltas = -1, i = 0, tag = 14;
     int proceso, total_pro = 0;
-    char mensaje = 'a';
-    int proceso_anterior;
-    int proximo_proceso=-1;
+    char mensaje[2] = { 'a' };
+
     MPI_Status status;
     MPI_Init(&argc, &argv);
     MPI_Comm_size(MPI_COMM_WORLD, &total_pro);
     MPI_Comm_rank(MPI_COMM_WORLD, &proceso);
 
-    printf("Antes de transmitir. Numero de vueltas: %d, soy el proceso %d", vueltas, proceso);
+    int proceso_anterior = (proceso - 1 + total_pro) % total_pro;
+    int proximo_proceso = (proceso + 1) % total_pro;
+
     if (total_pro > 1) {// Tengo mas de 1 proceso
         if (proceso == 0) {
             printf("Ingrese la cantidad de vueltas: \n");
             scanf("%d", &vueltas);
-            MPI_Bcast(&vueltas, 1, MPI_INT, proceso, MPI_COMM_WORLD);
-            printf("Transmiti numero de vueltas. Soy el proceso %d, y la cantidad de vueltas es %d", proceso, vueltas);
+            mensaje[1] = vueltas;
+            MPI_Send(&mensaje, 2, MPI_CHAR, proximo_proceso, tag, MPI_COMM_WORLD);
+            printf("El proceso %d envia el dato %c al proceso %d en el numero de vuelta: %c \n", proceso, mensaje[0], proximo_proceso, mensaje[1]);
         }
-        while(vueltas==-1){
-        	printf("Soy el proceso %d y estoy esperando la cantidad de vueltas.\n", proceso);
+        do {
 
-        }
-        
-        printf("Despues  de transmitir. Numero de vueltas: %d, soy el proceso %d", vueltas, proceso);
-        /*do{
-            printf("numero de vuelta %d\n",vueltas);
+            MPI_Recv(&mensaje, 2, MPI_CHAR, proceso_anterior, tag, MPI_COMM_WORLD, &status);
+            printf("Soy el proceso %d y recibo en el dato: %c en la vuelta %c\n", proceso, mensaje[0], mensaje[1]);
+
             if (proceso == 0) {
-                proceso_anterior = total_pro - 1;
-                printf("Desconte vuelta\n");
-                i++;
+                int proxima_vuelta = mensaje[1] - 1;
+                vueltas = proxima_vuelta;
+                mensaje[1] = proxima_vuelta;
+
             }
-            else {
-                proceso_anterior = proceso - 1;
-            }
-            MPI_Recv(&mensaje, 1, MPI_CHAR, proceso_anterior, proceso_anterior, MPI_COMM_WORLD, &status);
-            if (proceso == total_pro - 1) {
-                proximo_proceso = 0;
-            }
-            else {
-                proximo_proceso = proceso + 1;
-            }
+
             MPI_Send(&mensaje, 1, MPI_CHAR, proximo_proceso, proceso, MPI_COMM_WORLD);
-            printf("El proceso %d envia el dato %c al proceso %d\n", proceso, mensaje, proximo_proceso);
-        
-        } while (i < vueltas);
+            printf("El proceso %d envia el dato %c al proceso %d en el numero de vuelta: %c \n", proceso, mensaje[0], proximo_proceso, mensaje[1]);
+
+
+        } while (0 < vueltas);
 
         if (proceso == 0) {
             proceso_anterior = total_pro - 1;
             MPI_Recv(&mensaje, 1, MPI_CHAR, proceso_anterior, proceso_anterior, MPI_COMM_WORLD, &status);
-        }*/
+        }
     }
-   // printf("sali del while\n");
+
     MPI_Finalize();
     return(0);
 }
