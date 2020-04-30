@@ -42,7 +42,7 @@ int main(int argc, char** argv) {
               printf("El proceso %d envia el dato %c al proceso %d en el numero de vuelta: %d \n", proceso, mensaje, proximo_proceso, tag);
 			*/
         } while (0 < vueltas);
-
+        printf("Proceso %d termina\n", proceso);
         /*if (proceso == 0) {
             proceso_anterior = total_pro - 1;
             MPI_Recv(&mensaje, 1, MPI_CHAR, proceso_anterior, tag, MPI_COMM_WORLD, &status);
