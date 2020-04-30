@@ -25,6 +25,7 @@ int main (int argc, char** argv) {
         }
 
         do{
+            printf("numero de vuelta %d\n",vueltas);
             if (proceso == 0) {
                 proceso_anterior = total_pro - 1;
                 printf("Desconte vuelta\n");
