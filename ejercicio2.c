@@ -50,6 +50,7 @@ int main (int argc, char** argv) {
             MPI_Recv(&mensaje, 1, MPI_CHAR, proceso_anterior, proceso_anterior, MPI_COMM_WORLD, &status);
         }
     }
+    printf("sali del while\n");
     MPI_Finalize();
     return(0);
 }
