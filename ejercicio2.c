@@ -26,7 +26,7 @@ int main(int argc, char** argv) {
             printf("El proceso %d envia el dato %c al proceso %d en el numero de vuelta: %d \n", proceso, mensaje, proximo_proceso, tag);
         }
         do{
-        	 printf("Hola soy el proceso %d y entre al while\n",proceso );
+        	 printf("Hola soy el proceso %d y entre al while con tag =%d \n", proceso, tag);
             
             MPI_Recv(&mensaje, 1, MPI_CHAR, proceso_anterior,tag, MPI_COMM_WORLD, &status);
             printf("Soy el proceso %d y recibo en el dato: %c en la vuelta %d\n", proceso, mensaje, tag);
