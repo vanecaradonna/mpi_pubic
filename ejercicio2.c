@@ -16,7 +16,7 @@ int main(int argc, char** argv) {
 
     int proceso_anterior=(proceso-1+total_pro)%total_pro;
     int proximo_proceso = (proceso + 1)%total_pro;
-
+    printf("Hola soy el proceso %d \n",proceso );
     if (total_pro > 1) {// Tengo mas de 1 proceso
         if (proceso == 0) {
             printf("Ingrese la cantidad de vueltas: \n");
