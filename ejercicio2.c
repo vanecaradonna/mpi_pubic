@@ -17,13 +17,17 @@ int main (int argc, char** argv) {
 
     printf("Antes de transmitir. Numero de vueltas: %d, soy el proceso %d", vueltas, proceso);
     if (total_pro > 1) {// Tengo mas de 1 proceso
-        if (vueltas == -1) {
+        if (proceso == 0) {
             printf("Ingrese la cantidad de vueltas: \n");
             scanf("%d", &vueltas);
-            MPI_Bcast(&vueltas, 1, MPI_INT, proceso, MPI_COMM_WORD);
+            MPI_Bcast(&vueltas, 1, MPI_INT, proceso, MPI_COMM_WORLD);
             printf("Transmiti numero de vueltas. Soy el proceso %d, y la cantidad de vueltas es %d", proceso, vueltas);
         }
+        while(vueltas==-1){
+        	printf("Soy el proceso %d y estoy esperando la cantidad de vueltas.\n", proceso);
 
+        }
+        
         printf("Despues  de transmitir. Numero de vueltas: %d, soy el proceso %d", vueltas, proceso);
         /*do{
             printf("numero de vuelta %d\n",vueltas);
