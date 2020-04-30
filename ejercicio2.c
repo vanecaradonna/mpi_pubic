@@ -5,9 +5,9 @@
 #include <string.h>
 
 int main(int argc, char** argv) {
-    int vueltas = -1, i = 0, tag;
+    int vueltas = -1, i = 0, tag=10;
     int proceso, total_pro = 0;
-    char mensaje =  'a' ;
+    char mensaje[2] =  {'a'} ;
     
     MPI_Status status;
     MPI_Init(&argc, &argv);
@@ -21,30 +21,32 @@ int main(int argc, char** argv) {
         if (proceso == 0) {
             printf("Ingrese la cantidad de vueltas: \n");
             scanf("%d", &vueltas);
-            tag=vueltas;
-            MPI_Send(&mensaje, 1, MPI_CHAR, proximo_proceso, tag, MPI_COMM_WORLD);
-            printf("El proceso %d envia el dato %c al proceso %d en el numero de vuelta: %d \n", proceso, mensaje, proximo_proceso, tag);
+            mensaje[1]=vueltas;
+            printf("Vueltas = %c\n", mensaje[1] );
+            MPI_Send(&mensaje, 2, MPI_CHAR, proximo_proceso, tag, MPI_COMM_WORLD);
+            printf("El proceso %d envia el dato %c al proceso %d en el numero de vuelta: %d \n", proceso, mensaje[0], proximo_proceso, mensaje[1]);
         }
         do{
-        	 printf("Hola soy el proceso %d y entre al while con tag =%d \n", proceso, tag);
+
             
-            MPI_Recv(&mensaje, 1, MPI_CHAR, proceso_anterior,tag, MPI_COMM_WORLD, &status);
-            printf("Soy el proceso %d y recibo en el dato: %c en la vuelta %d\n", proceso, mensaje, tag);
-            
+            MPI_Recv(&mensaje, 2, MPI_CHAR, proceso_anterior,tag, MPI_COMM_WORLD, &status);
+            printf("Soy el proceso %d y recibo en el dato: %c en la vuelta %c\n", proceso, mensaje[0], mensaje[1]);
+            printf("Hola soy el proceso %d y entre al while con vuelta =%c \n", proceso, mensaje[1]);
+
             if (proceso == 0) {
                 tag--;
                 vueltas=tag;
             }
             
-            MPI_Send(&mensaje, 1, MPI_CHAR, proximo_proceso, tag, MPI_COMM_WORLD);
-            printf("El proceso %d envia el dato %c al proceso %d en el numero de vuelta: %d \n", proceso, mensaje, proximo_proceso,tag);
+            MPI_Send(&mensaje, 2, MPI_CHAR, proximo_proceso, tag, MPI_COMM_WORLD);
+            printf("El proceso %d envia el dato %c al proceso %d en el numero de vuelta: %c \n", proceso, mensaje[0], proximo_proceso,mensaje[1]);
 
             
         } while (0 < vueltas);
 
         if (proceso == 0) {
             proceso_anterior = total_pro - 1;
-            MPI_Recv(&mensaje, 1, MPI_CHAR, proceso_anterior, tag, MPI_COMM_WORLD, &status);
+            MPI_Recv(&mensaje, 2, MPI_CHAR, proceso_anterior, tag, MPI_COMM_WORLD, &status);
         }
     }
     
