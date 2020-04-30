@@ -16,7 +16,7 @@ int main(int argc, char** argv) {
 
     int proceso_anterior=(proceso-1+total_pro)%total_pro;
     int proximo_proceso = (proceso + 1)%total_pro;
-    printf("Hola soy el proceso %d \n",proceso );
+
     if (total_pro > 1) {// Tengo mas de 1 proceso
         if (proceso == 0) {
             printf("Ingrese la cantidad de vueltas: \n");
@@ -26,6 +26,7 @@ int main(int argc, char** argv) {
             printf("El proceso %d envia el dato %c al proceso %d en el numero de vuelta: %d \n", proceso, mensaje, proximo_proceso, tag);
         }
         do{
+        	 printf("Hola soy el proceso %d y entre al while\n",proceso );
             
             MPI_Recv(&mensaje, 1, MPI_CHAR, proceso_anterior,tag, MPI_COMM_WORLD, &status);
             printf("Soy el proceso %d y recibo en el dato: %c en la vuelta %d\n", proceso, mensaje, tag);
