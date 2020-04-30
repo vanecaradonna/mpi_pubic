@@ -21,28 +21,29 @@ int main(int argc, char** argv) {
         if (proceso == 0) {
             printf("Ingrese la cantidad de vueltas: \n");
             scanf("%d", &vueltas);
-            MPI_Send(&mensaje, 1, MPI_CHAR, proximo_proceso, tag, MPI_COMM_WORLD);
-            printf("El proceso %d envia el dato %c al proceso %d en el numero de vuelta: %d \n", proceso, mensaje, proximo_proceso, vueltas);
+            
         }
         MPI_Bcast(&vueltas, 1, MPI_INT, 0, MPI_COMM_WORLD);
 
 
         do {
-            printf("Hola soy el proceso %d y entre al while con vueltas =%d \n", proceso, vueltas);
-
-            MPI_Recv(&mensaje, 1, MPI_CHAR, proceso_anterior, tag, MPI_COMM_WORLD, &status);
-            printf("Soy el proceso %d y recibo en el dato: %c en la vuelta %d\n", proceso, mensaje, vueltas);
-
+            //printf("Hola soy el proceso %d y entre al while con vueltas =%d \n", proceso, vueltas);
             MPI_Send(&mensaje, 1, MPI_CHAR, proximo_proceso, tag, MPI_COMM_WORLD);
-            printf("El proceso %d envia el dato %c al proceso %d en el numero de vuelta: %d \n", proceso, mensaje, proximo_proceso, tag);
+            printf("El proceso %d envia el dato %c al proceso %d en el numero de vuelta: %d \n", proceso, mensaje, proximo_proceso, vueltas);
+           
+            MPI_Recv(&mensaje, 1, MPI_CHAR, proceso_anterior, tag, MPI_COMM_WORLD, &status);
+            printf("Soy el proceso %d y recibo en el dato: %c en la vuelta %d\n \n", proceso, mensaje, vueltas);
 
+            /*MPI_Send(&mensaje, 1, MPI_CHAR, proximo_proceso, tag, MPI_COMM_WORLD);
+              printf("El proceso %d envia el dato %c al proceso %d en el numero de vuelta: %d \n", proceso, mensaje, proximo_proceso, tag);
+			*/
             vueltas--;
         } while (0 < vueltas);
 
-        if (proceso == 0) {
+        /*if (proceso == 0) {
             proceso_anterior = total_pro - 1;
             MPI_Recv(&mensaje, 1, MPI_CHAR, proceso_anterior, tag, MPI_COMM_WORLD, &status);
-        }
+        }*/
     }
 
     MPI_Finalize();
