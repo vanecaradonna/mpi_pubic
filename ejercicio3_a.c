@@ -43,7 +43,13 @@ int main(int argc, char** argv) {
     //Envio el vector a todos los procesos
     MPI_Bcast(&vector, cantidad_filas, MPI_INT, 0, MPI_COMM_WORLD);
     MPI_Scatter(&matriz, cantidad_columnas, MPI_INT, &fila, cantidad_columnas, MPI_INT, 0, MPI_COMM_WORLD);
-    printf("Proceso %d: dato= %d\n", proceso, fila[0]);
+    
+    int i = 0, resultado=0;
+    while (i < cantidad_columnas) {
+        resultado = resultado + fila[i] * vector[i][1];
+        i++;
+    }
+    printf("Proceso %d: resultado: %d", proceso, resultado);
 
     /*
     MPI_Send(&mensaje, 1, MPI_CHAR, proximo_proceso, tag, MPI_COMM_WORLD);
