@@ -42,7 +42,7 @@ int main(int argc, char** argv) {
     int size = cantidad_columnas * cantidad_filas;
     //Envio el vector a todos los procesos
     MPI_Bcast(&vector, cantidad_filas, MPI_INT, 0, MPI_COMM_WORLD);
-    MPI_Scatter(&matriz, size, MPI_INT, &fila, cantidad_columnas, MPI_INT, 0, MPI_COMM_WORLD);
+    MPI_Scatter(&matriz, cantidad_columnas, MPI_INT, &fila, cantidad_columnas, MPI_INT, 0, MPI_COMM_WORLD);
     printf("Proceso %d: dato= %d", proceso, fila[0]);
 
     /*
