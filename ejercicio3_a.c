@@ -35,7 +35,7 @@ int main(int argc, char** argv) {
         }
         i = 0;
         while (i < cantidad_filas) {
-            vector[i] = i + 1;
+            vector[i][1] = i + 1;
             i++;
         }
     }
