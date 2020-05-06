@@ -36,7 +36,9 @@ int main(int argc, char** argv) {
         i = 0;
         while (i < cantidad_filas) {
             vector[i][0] = i + 1;
+            printf("Vector[%d][0]=%d ", i, vector[i][0]);
             i++;
+            
         }
     }
     int size = cantidad_columnas * cantidad_filas;
@@ -46,7 +48,7 @@ int main(int argc, char** argv) {
     
     int i = 0, resultado=0;
     while (i < cantidad_columnas) {
-        printf("Proceso %d: fila[%d]=%d  vector[%d][0]=%d\n", proceso, i,fila[i],i, vector[0]);
+        printf("Proceso %d: fila[%d]=%d  vector[%d][0]=%d\n", proceso, i,fila[i],i, vector[i][0]);
         resultado = resultado + (fila[i] * vector[i][0]);
         i++;
     }
