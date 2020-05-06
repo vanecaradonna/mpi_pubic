@@ -53,14 +53,14 @@ int main(int argc, char** argv) {
         resultado = resultado + (fila[i] * vector[i][0]);
         i++;
     }
-    printf("Proceso %d: resultado: %d\n", proceso, resultado);
+    //printf("Proceso %d: resultado: %d\n", proceso, resultado);
     MPI_Gather(&resultado, 1, MPI_INT, matriz_resultante, 1, MPI_INT, 0, MPI_COMM_WORLD);
 
     if (proceso == 0) {
         int k = 0;
         printf("La matriz resultante es: \n");
         while (k < cantidad_filas) {
-            printf("    |%d|\n", matriz_resultante[k][0]);
+            printf("|%d|\n", matriz_resultante[k][0]);
             k++;
         }
     }
