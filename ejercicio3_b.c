@@ -19,7 +19,9 @@ int main(int argc, char** argv) {
     MPI_Bcast(&cantidad_filas, 1, MPI_INT, 0, MPI_COMM_WORLD);
     cantidad_columnas = cantidad_filas;
     cantidad_datos = (cantidad_filas / total_pro) * cantidad_filas;
+    printf("cantidad de datos=%d\n", cantidad_datos);
     int filas_enviadas = cantidad_filas / total_pro;
+    printf("flias enviadas=%d\n", filas_enviadas);
     int matriz[cantidad_filas][cantidad_columnas];
     int vector[cantidad_filas][1];
     int filas[filas_enviadas][cantidad_columnas];
@@ -80,7 +82,8 @@ int main(int argc, char** argv) {
     /*
     MPI_Send(&mensaje, 1, MPI_CHAR, proximo_proceso, tag, MPI_COMM_WORLD);
     MPI_Bcast(&vueltas, 1, MPI_INT, 0, MPI_COMM_WORLD); //Envia dato a todos los procesos
-    MPI_Recv(&mensaje, 1, MPI_CHAR, proceso_anterior, tag, MPI_COMM_WORLD, &status);*/
+    MPI_Recv(&mensaje, 1, MPI_CHAR, proceso_anterior, tag, MPI_COMM_WORLD, &status);
+    */
     MPI_Finalize();
     return(0);
 }
