@@ -18,9 +18,16 @@ int main(int argc, char** argv) {
     //Envio la cantidad de filas que tendra mi matriz a todos los procesos
     MPI_Bcast(&cantidad_filas, 1, MPI_INT, 0, MPI_COMM_WORLD);
     cantidad_columnas = cantidad_filas;
-    cantidad_datos = (cantidad_filas / total_pro) * cantidad_filas;
+    int filas_enviadas;
+    if (cantidad_filas / total_pro == 0) {
+        cantidad_datos = (cantidad_filas / total_pro) * cantidad_filas;
+        filas_enviadas = cantidad_filas / total_pro;
+    }
+    else { //La cantidad de procesos no es multiplo de la cantidad de filas.
+        cantidad_datos = ((cantidad_filas / total_pro) + 1) * cantidad_filas;
+        filas_enviadas = (cantidad_filas / total_pro) + 1;
+    }
     printf("cantidad de datos=%d\n", cantidad_datos);
-    int filas_enviadas = cantidad_filas / total_pro;
     printf("flias enviadas=%d\n", filas_enviadas);
     int matriz[cantidad_filas][cantidad_columnas];
     int vector[cantidad_filas][1];
