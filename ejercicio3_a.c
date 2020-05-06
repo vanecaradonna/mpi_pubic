@@ -21,6 +21,7 @@ int main(int argc, char** argv) {
     int matriz[cantidad_filas][cantidad_columnas];
     int vector[cantidad_filas][1];
     int fila[cantidad_columnas];
+    int matriz_resultante[cantidad_filas][1];
     //Lleno la matriz y el vector
     if (proceso == 0) {
         int i = 0, j = 0, contador = 1;
@@ -36,7 +37,7 @@ int main(int argc, char** argv) {
         i = 0;
         while (i < cantidad_filas) {
             vector[i][0] = i + 1;
-            printf("Vector[%d][0]=%d ", i, vector[i][0]);
+            //printf("Vector[%d][0]=%d\n ", i, vector[i][0]);
             i++;
             
         }
@@ -48,12 +49,21 @@ int main(int argc, char** argv) {
     
     int i = 0, resultado=0;
     while (i < cantidad_columnas) {
-        printf("Proceso %d: fila[%d]=%d  vector[%d][0]=%d\n", proceso, i,fila[i],i, vector[i][0]);
+        //printf("Proceso %d: fila[%d]=%d  vector[%d][0]=%d\n", proceso, i,fila[i],i, vector[i][0]);
         resultado = resultado + (fila[i] * vector[i][0]);
         i++;
     }
     printf("Proceso %d: resultado: %d\n", proceso, resultado);
+    MPI_Gather(&resultado, 1, MPI_INT, matriz_resultante, cantidad_filas, MPI_INT, 0, MPI_COMM_WORLD);
 
+    if (proceso == 0) {
+        int k = 0;
+        printf("La matriz resultante es: \n");
+        while (k < cantidad_filas) {
+            printf("|%d|\n", matriz_resultante[k][0]);
+            k++;
+        }
+    }
     /*
     MPI_Send(&mensaje, 1, MPI_CHAR, proximo_proceso, tag, MPI_COMM_WORLD);
     MPI_Bcast(&vueltas, 1, MPI_INT, 0, MPI_COMM_WORLD); //Envia dato a todos los procesos
