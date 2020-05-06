@@ -46,10 +46,11 @@ int main(int argc, char** argv) {
     
     int i = 0, resultado=0;
     while (i < cantidad_columnas) {
-        resultado = resultado + fila[i] * vector[i][1];
+        printf("Proceso %d: fila[%d]=%d  vector[%d][1]=%d\n", proceso, i,fila[i],i, vector[i]);
+        resultado = resultado + (fila[i] * vector[i][1]);
         i++;
     }
-    printf("Proceso %d: resultado: %d", proceso, resultado);
+    printf("Proceso %d: resultado: %d\n", proceso, resultado);
 
     /*
     MPI_Send(&mensaje, 1, MPI_CHAR, proximo_proceso, tag, MPI_COMM_WORLD);
