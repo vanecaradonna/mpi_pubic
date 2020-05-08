@@ -1,15 +1,16 @@
 /*Ejercicio 4 manager*/
 #include <mpi.h>
 int main(int argc, char* argv[]) {
-	int world_size = 0, universe_size = 0, universe_sizep = 0, flag=0;
+	int world_size = 0, universe_size = 0, *universe_sizep, flag=0;
 	MPI_Comm everyone; /* intercommunicator */
+	char worker_program[100];
 	MPI_Init(&argc, &argv);
 	MPI_Comm_size(MPI_COMM_WORLD, &world_size);
 	if (world_size != 1) 
 		error("Top heavy with management");
 	MPI_Comm_get_attr(MPI_COMM_WORLD, MPI_UNIVERSE_SIZE, &universe_sizep, &flag);
 	if (!flag) {
-		printf("This MPI does not support UNIVERSE_SIZE. How many\n\processes total?");
+		printf("This MPI does not support UNIVERSE_SIZE. How many processes total?");
 		scanf("%d", &universe_size);
 	}
 	else 
