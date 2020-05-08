@@ -7,13 +7,15 @@ int main(int argc, char** argv){
 	char worker_program[100];
 	MPI_Init(&argc, &argv);
 	MPI_Comm_size(MPI_COMM_WORLD, &world_size);
-	if (world_size != 1)
-		printf("Top heavy with management");
+	if (world_size != 1) {
+		printf("Top heavy with managemen\n");
+	}
 	MPI_Comm_get_attr(MPI_COMM_WORLD, MPI_UNIVERSE_SIZE,&universe_sizep, &flag);
 	if (flag == 0)  {
 		printf("MPI no soporta universe_size\n");
 		printf("cuantos procesos totales? \n");
 		//printf("This MPI does not support UNIVERSE_SIZE \n How many processes total ? \n");
+		
 		scanf("%d", &universe_size);
 	}
 	else {
