@@ -1,6 +1,7 @@
 /*Ejercicio 4 manager*/
 #include <mpi.h>
 int main(int argc, char* argv[]) {
+	int world_size = 0, universe_size = 0, universe_sizep = 0, flag=0;
 	MPI_Comm everyone; /* intercommunicator */
 	MPI_Init(&argc, &argv);
 	MPI_Comm_size(MPI_COMM_WORLD, &world_size);
