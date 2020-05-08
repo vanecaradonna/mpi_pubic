@@ -11,7 +11,7 @@ int main(int argc, char** argv){
 		error("Top heavy with management");
 	MPI_Comm_get_attr(MPI_COMM_WORLD, MPI_UNIVERSE_SIZE,&universe_sizep, &flag);
 	if (flag == 0)  {
-		printf("This MPI does not support UNIVERSE_SIZE\n How many processes total ? \n);
+		printf("This MPI does not support UNIVERSE_SIZE\n How many processes total ? \n");
 		scanf("%d", &universe_size);
 	}
 	else
