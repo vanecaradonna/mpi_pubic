@@ -10,15 +10,14 @@ int main(int argc, char** argv){
 	if (world_size != 1)
 		error("Top heavy with management");
 	MPI_Comm_get_attr(MPI_COMM_WORLD, MPI_UNIVERSE_SIZE,&universe_sizep, &flag);
-	if (!flag) {
-		printf("This MPI does not support UNIVERSE_SIZE.");
-		printf("How many processes total ? \n");
+	if (flag == 0)  {
+		printf("This MPI does not support UNIVERSE_SIZE\n How many processes total ? \n);
 		scanf("%d", &universe_size);
 	}
 	else
-	universe_size = *universe_sizep;
+		universe_size = *universe_sizep;
 	if (universe_size == 1)
-	error("No room to start workers");
+		error("No room to start workers");
 	/*
 	* Now spawn the workers. Note that there is a runtime
 	* determination of what type of worker to spawn, and presumably
@@ -27,7 +26,7 @@ int main(int argc, char** argv){
 	* known when the application is first started, it is generally
 	* better to start them all at once in a single MPI_COMM_WORLD.
 	*/
-	choose_worker_program(worker_program);
+	//choose_worker_program(worker_program);
 	MPI_Comm_spawn(worker_program, MPI_ARGV_NULL, universe_size - 1,MPI_INFO_NULL, 0, MPI_COMM_SELF, &everyone,
 		MPI_ERRCODES_IGNORE);
 	/*
