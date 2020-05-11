@@ -1,6 +1,8 @@
 /*Ejercicio 4 manager*/
 /* manager */
 #include <mpi.h>
+#include <stdio.h> 
+#include <string.h>
 int main(int argc, char** argv){
 	int world_size, universe_size, *universe_sizep, flag;
 	MPI_Comm everyone; /* intercommunicator */
