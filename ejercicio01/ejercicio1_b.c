@@ -1,4 +1,13 @@
-/*Ejercicio 1 b*/
+/*Ejercicio 1 
+b) Modificar el programa anterior de manera que los procesos paralelos envíen el
+mensaje de saludo “Saludos desde el proceso #” al Proceso 0, quien será el
+responsable de imprimirlo en la salida estándar. La salida tendrá las siguientes
+características:
+Hola, soy el proceso 0 (hay “n” procesos) y recibo: (Hola desde el proceso #)
+                                                    (Hola desde el proceso #)
+                                                                … 
+*/
+
 
 #include <mpi.h>
 #include <stdio.h>

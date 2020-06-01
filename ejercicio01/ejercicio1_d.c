@@ -1,4 +1,7 @@
-/*Ejercicio 1 d*/
+/*Ejercicio 1 
+    d)  ¿Qué modificaciones debe hacer al programa anterior para que el proceso
+        responsable de imprimir es otro proceso distinto del Proceso 0? Realícelas.
+*/
 
 #include <mpi.h>
 #include <stdio.h>

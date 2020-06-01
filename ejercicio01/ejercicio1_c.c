@@ -1,4 +1,12 @@
-/*Ejercicio 1 c*/
+/*Ejercicio 1 
+    c) Modificar el programa anterior, de manera tal que sea posible recibir e imprimir los
+    mensajes enviados al Proceso 0 en orden ascendente. Es decir, para cuatro procesos
+    la salida debería ser la siguiente:
+    Hola, soy el proceso 0 (hay 4 procesos) y recibo:   (Hola desde el proceso 1)
+                                                        (Hola desde el proceso 2)
+                                                        (Hola desde el proceso 3)
+                                                        (Hola desde el proceso 4)
+*/
 
 #include <mpi.h>
 #include <stdio.h>

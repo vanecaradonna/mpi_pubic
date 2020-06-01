@@ -1,6 +1,11 @@
+/*
+Ejercicio 1: Hello World.
+	a) El siguiente código resuelve un saludo en paralelo de todos los procesos que trabajan en paralelo:
+	Ejecutar  el programa para distinta cantidad de procesos. Analizar la salida  de  las ejecuciones  y 
+	compararlas entre ellas.
+*/
 
-
-#include <iostream>
+#include <stdio.h>
 #include <mpi.h>
 
 int main(int argc, char **argv) {

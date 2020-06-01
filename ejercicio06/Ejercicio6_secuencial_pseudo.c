@@ -1,10 +1,22 @@
-/*Ejercicio 5 - pseudocodigo secuencial*/
+/*Ejercicio 5 - pseudocodigo secuencial
+a) 	Analice el problema planteado. ¿Considera que es posible encontrar una solución
+	paralela para el mismo? Justifique su respuesta.
+	Se puede utilizar una implementacion paralela dividiendo la matriz dependiendo la cantidad
+	de procesos que tenga. Considerando que ademas de enviar las posiciones a calcular enviamos 
+	tambien los bordes la submatriz para que cada nodo pueda calcular los vecinos de sus celular.
+
+b) 	Realice una implementación del juego de a vida de manera secuencial y otra en forma
+	paralela utilizando MPI. Ambas implementaciones serán en pseudocódigo.
+	Considere que el estado inicial es generado aleatoriamente por el programa. Se debe
+	parametrizar el tamaño de la matriz y el número de ciclos que ejecutará el juego
+
+
+*/
 #include <mpi.h>
 #include <stdio.h> 
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
-#include<iostream>
 
 /*
 Recibe el nodo actual, los vecinos y la cantidad de los mismos y devuelve si la celda devuelve:
@@ -46,97 +58,4 @@ int main(int argc, char** argv) {
 		imprimir_matriz(matriz);
 		k++;
 	}
-}
-
-int buscar_vecinos(int matriz[][], int vecinos[], int fila, int columna, int cantidad) {
-	/*Esquina superior izquierda*/
-	if (fila == 0 && columna == 0) {
-		vecinos[0] = matriz[0][1];
-		vecinos[1] = matriz[1][1];
-		vecinos[2] = matriz[1][0];
-		return(3);
-
-	}
-	else {
-		/*Esquina superior derecha*/
-		if (fila == 0 && columna == cantidad - 1) {
-			vecinos[0] = matriz[0][cantidad - 2];
-			vecinos[1] = matriz[1][cantidad - 2];
-			vecinos[2] = matriz[1][cantidad - 1];
-			return(3);
-		}
-		else {
-			/*Esquina inferior izquierda */
-			if (fila == cantidad - 1 && columna == 0) {
-				vecinos[0] = matriz[cantidad - 2][0];
-				vecinos[1] = matriz[cantidad - 2][1];
-				vecinos[2] = matriz[cantidad - 1][1];
-				return(3);
-			}
-			else {
-				/*Esquina inferior derecha */
-				if (fila == cantidad - 1 && columna == cantidad - 1) {
-					vecinos[0] = matriz[cantidad - 2][cantidad - 2];
-					vecinos[1] = matriz[cantidad - 2][cantidad - 1];
-					vecinos[2] = matriz[cantidad - 1][cantidad - 2];
-					return(3);
-				}
-				else {
-					/*Borde Superior*/
-					if (fila == 0) {
-
-						return(5);
-					}
-				}
-			}
-		}
-	}
-}
-
-void llenar_matriz(int matriz[][], int cnt_filas) {
-	int i = 0, j = 0, random = 0;
-
-	while (i < cnt_filas)
-	{
-		j = 0;
-		srand(time(NULL));
-		while (j < cnt_filas)
-		{
-			random = rand() % (1 - 0);
-			if (random < 0.5) {
-				matriz[i][j] = 0;
-			}
-			else {
-				matriz[i][j] = 1;
-			}
-			j++;
-		}
-		i++;
-	}
-}
-int vive(int nodo, int vecinos[], int cantidad) {
-	int cnt_vecinos_vivos = 0, i = 0;
-	while (i < cantidad) {
-		if (vecinos[i] == 1) {
-			cnt_vecinos_vivos++;
-		}
-		i++;
-	}
-	if (nodo == 1) { //La celda esta viva
-		if (cnt_vecinos_vivos == 2 || cnt_vecinos_vivos == 3) {
-			return(1);
-		}
-		else {
-			return(0);
-		}
-	}
-	else {//La celda esta muerta
-		if (cnt_vecinos_vivos == 3) {
-			return(1);
-		}
-		else {
-			return(0);
-		}
-	}
-
 }
